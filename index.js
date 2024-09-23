@@ -22,6 +22,7 @@ const player = new Player(canvas, 3, playerBulletController);
 
 let isGameOver = false;
 let didWin = false;
+let gameStarted = false;
 
 function game() {
   checkGameOver();
@@ -37,12 +38,28 @@ function game() {
 
 function displayGameOver() {
   if (isGameOver) {
-    let text = didWin ? "You Win" : "Game Over";
-    let textOffset = didWin ? 3.5 : 5;
+    let firstLine = didWin
+      ? "You Win! Press Space to Play Again."
+      : "Your Space Has Been Invaded!";
+    let secondLine = "Press Space to Try Again.";
 
+    let fontSize = canvas.width / 18;
     context.fillStyle = "white";
-    context.font = "70px Arial";
-    context.fillText(text, canvas.width / textOffset, canvas.height / 2);
+    context.font = `${fontSize}px Arial`;
+
+    let textWidth1 = context.measureText(firstLine).width;
+    let textWidth2 = context.measureText(secondLine).width;
+
+    context.fillText(
+      firstLine,
+      (canvas.width - textWidth1) / 2,
+      canvas.height / 2
+    );
+    context.fillText(
+      secondLine,
+      (canvas.width - textWidth2) / 2,
+      canvas.height / 2 + fontSize + 5
+    );
   }
 }
 
@@ -52,15 +69,45 @@ function checkGameOver() {
   }
   if (enemyBulletController.collideWith(player)) {
     isGameOver = true;
+    didWin = false;
+    endGame();
   }
 
   if (enemyController.collideWith(player)) {
     isGameOver = true;
+    didWin = false;
+    endGame();
   }
 
   if (enemyController.enemyRows.length === 0) {
     didWin = true;
     isGameOver = true;
+    endGame();
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === " " || event.key === "Spacebar") {
+      if (!gameStarted) {
+        resetGame();
+        gameStarted = true;
+      }
+    }
+  });
+
+  function endGame() {
+    if (didWin) {
+      console.log("You win! Press Space to play again.");
+    } else {
+      console.log("Game over! Press Space to try again.");
+    }
+
+    gameStarted = false;
+  }
+
+  function resetGame() {
+    isGameOver = false;
+    didWin = false;
+    enemyController.createEnemies();
   }
 }
 setInterval(game, 1000 / 60);
