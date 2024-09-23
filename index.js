@@ -38,9 +38,7 @@ function game() {
 
 function displayGameOver() {
   if (isGameOver) {
-    let firstLine = didWin
-      ? "You Win! Press Space to Play Again."
-      : "Your Space Has Been Invaded!";
+    let firstLine = didWin ? "You Win!" : "Your Space Has Been Invaded!";
     let secondLine = "Press Space to Try Again.";
 
     let fontSize = canvas.width / 18;
