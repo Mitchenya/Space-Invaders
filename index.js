@@ -84,30 +84,32 @@ function checkGameOver() {
     isGameOver = true;
     endGame();
   }
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key === " " || event.key === "Spacebar") {
-      if (!gameStarted) {
-        resetGame();
-        gameStarted = true;
-      }
-    }
-  });
-
-  function endGame() {
-    if (didWin) {
-      console.log("You win! Press Space to play again.");
-    } else {
-      console.log("Game over! Press Space to try again.");
-    }
-
-    gameStarted = false;
-  }
-
-  function resetGame() {
-    isGameOver = false;
-    didWin = false;
-    enemyController.createEnemies();
-  }
 }
+
+function endGame() {
+  gameStarted = false;
+}
+
+function resetGame() {
+  isGameOver = false;
+  didWin = false;
+
+  player.resetPosition();
+
+  playerBulletController.clearBullets();
+  enemyBulletController.clearBullets();
+
+  enemyController.createEnemies();
+
+  gameStarted = true;
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === " " || event.key === "Spacebar") {
+    if (!gameStarted) {
+      resetGame();
+    }
+  }
+});
+
 setInterval(game, 1000 / 60);

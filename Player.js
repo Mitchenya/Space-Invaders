@@ -29,11 +29,11 @@ export default class Player {
   }
 
   collideWithWalls() {
-    //left
+    // Left Boundary
     if (this.x < 0) {
       this.x = 0;
 
-      //right
+      // Right Boundary
     } else if (this.x > this.canvas.width - this.width)
       this.x = this.canvas.width - this.width;
   }
@@ -69,4 +69,12 @@ export default class Player {
       this.shootPressed = false;
     }
   };
+
+  resetPosition() {
+    this.x = this.canvas.width / 2;
+    this.y = this.canvas.height - 75;
+    this.rightPressed = false;
+    this.leftPressed = false;
+    this.shootPressed = false;
+  }
 }

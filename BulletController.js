@@ -52,4 +52,8 @@ export default class BulletController {
       this.timeTimeNextBulletAllowed = timeTimeNextBulletAllowed;
     }
   }
+
+  clearBullets() {
+    this.bullets = [];
+  }
 }
