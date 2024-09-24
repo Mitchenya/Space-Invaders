@@ -4,41 +4,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="#" />
-    <link />
     <title>Space Invaders</title>
     <style>
       canvas {
         box-shadow: black 20px 10px 50px;
-
       }
+
       h1 {
-        margin: 0px;
+        margin: 0;
         margin-bottom: 10px;
         font-size: 2.9em;
         font-family: Arial, Helvetica, sans-serif;
         color: white;
       }
+
       body {
         display: flex;
-        align-items: center ;
+        align-items: center;
         justify-content: center;
         flex-direction: column;
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
         height: 100vh;
-        background-image: url(/images/4kspace.jpg)
+        background-image: url(/images/4kspace.jpg);
+        background-size: cover;
+      }
 
+      #scoreboard-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 250px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+      }
+
+      #scoreboard-container h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 22px;
+        color: #ffcc00;
+      }
+
+      #scoreboard p {
+        margin: 5px 0;
+        padding: 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
       }
     </style>
   </head>
+
   <body>
     <h1>Space Invaders</h1>
+
     <div id="gameControls">
-    <div class="canvas-container">
-    <canvas id="game">
+      <div class="canvas-container">
+        <canvas id="game"></canvas>
+      </div>
     </div>
-      <script type="module" src="index.js"></script>
-    </canvas>
-  </div>
+
+    <div id="scoreboard-container">
+      <h2>Scoreboard</h2>
+      <div id="scoreboard"></div>
+    </div>
+
+    <script type="module" src="index.js"></script>
   </body>
 </html>

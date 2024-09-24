@@ -23,6 +23,9 @@ const player = new Player(canvas, 3, playerBulletController);
 let isGameOver = false;
 let didWin = false;
 let gameStarted = false;
+let startTime = [];
+let scoreboard = [];
+let playerScore = [];
 
 function game() {
   checkGameOver();
@@ -86,12 +89,39 @@ function checkGameOver() {
 
 function endGame() {
   gameStarted = false;
+
+  if (didWin) {
+    const playerName = prompt(
+      "Congratulations! Enter your name for the scoreboard:"
+    );
+    const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+    addToScoreboard(playerName, timeTaken);
+    displayScoreboard();
+  }
+}
+
+function addToScoreboard(name, score) {
+  scoreboard.push({ name, score: score.toFixed(2) + "seconds" });
+  scoreboard.sort((a, b) => a.score - b.score);
+}
+
+function displayScoreboard() {
+  const scoreboardElement = document.getElementById("scoreboard");
+  scoreboardElement.innerHTML = "";
+
+  scoreboard.forEach((entry) => {
+    const scoreEntry = document.createElement("p");
+    scoreEntry.textContent = `${entry.name}: ${entry.score}`;
+    scoreboardElement.appendChild(scoreEntry);
+  });
 }
 
 function resetGame() {
   isGameOver = false;
   didWin = false;
+  playerScore = 0;
 
+  startTime = Date.now();
   player.resetPosition();
 
   playerBulletController.clearBullets();
